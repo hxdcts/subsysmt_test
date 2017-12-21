@@ -7,7 +7,7 @@ dubbo_image="docker-publish.sunfund.com/dubbo_$project_name:$4"
 dubbo_container_name=${project_name}"_dubbo"
 dubbo_port=$3
 docker_logs_dir=/app_logs
-dubbo_logs_dir="/Users/cts/Desktop/logs/$project_name"
+dubbo_logs_dir="/Users/cts/Desktop/$project_name"
 #maven_m2_dir="/opt/data/jenkins-project/persistent/m2/repository"
 project_dir="$(pwd)"
 function build(){

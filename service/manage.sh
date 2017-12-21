@@ -12,7 +12,7 @@ maven_container_name="maven"
 profile=$3
 tomcat_port=$4
 docker_log_dir="/app_logs"
-tomcat_logs_dir="/Users/cts/Desktop/logs/$project_name"
+tomcat_logs_dir="/Users/cts/Desktop/$project_name"
 maven_m2_dir="/Users/cts/Desktop/repository"
 project_dir="$(pwd)"
 function build(){
