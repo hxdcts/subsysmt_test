@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pfb.entity.BankInfoEntity">
+    <resultMap id="BaseResultMap" type="com.pfb.entity.BankInfoEntity">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="BRANCH_ID" jdbcType="VARCHAR" property="branchId"/>
+        <result column="BRANCH_NAME" jdbcType="VARCHAR" property="branchName"/>
+        <result column="BRANCH_CODE" jdbcType="VARCHAR" property="branchCode"/>
+        <result column="BANK_ID" jdbcType="VARCHAR" property="bankId"/>
+        <result column="BANK_NAME" jdbcType="VARCHAR" property="bankName"/>
+        <result column="CITY_ID" jdbcType="VARCHAR" property="cityId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      ID, BRANCH_ID, BRANCH_NAME, BRANCH_CODE, BANK_ID, BANK_NAME,CITY_ID
+    </sql>
+
+    <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mt_bank_info
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insert" parameterType="com.pfb.entity.BankInfoEntity" keyColumn="ID" keyProperty="id" useGeneratedKeys="true">
+        insert into mt_bank_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="branchId != null">
+                BRANCH_ID,
+            </if>
+            <if test="branchName != null">
+                BRANCH_NAME,
+            </if>
+            <if test="branchCode != null">
+                BRANCH_CODE,
+            </if>
+            <if test="bankId != null">
+                BANK_ID,
+            </if>
+            <if test="bankName != null">
+                BANK_NAME,
+            </if>
+            <if test="cityId != null">
+                CITY_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="branchId != null">
+                #{branchId,jdbcType=VARCHAR},
+            </if>
+            <if test="branchName != null">
+                #{branchName,jdbcType=VARCHAR},
+            </if>
+            <if test="branchCode != null">
+                #{branchCode,jdbcType=VARCHAR},
+            </if>
+            <if test="bankId != null">
+                #{bankId,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName != null">
+                #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="cityId != null">
+                #{cityId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!-- 条件查询 -->
+    <select id="queryListForPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_bank_info
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="branchId != null"> AND BRANCH_ID = #{branchId,jdbcType=VARCHAR} </if>
+            <if test="branchName != null"> AND BRANCH_NAME = #{branchName,jdbcType=VARCHAR} </if>
+            <if test="branchCode != null"> AND BRANCH_CODE = #{branchCode,jdbcType=VARCHAR} </if>
+            <if test="bankId != null"> AND BANK_ID = #{bankId,jdbcType=VARCHAR} </if>
+            <if test="bankName != null"> AND BANK_NAME = #{bankName,jdbcType=VARCHAR} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+    <select id="getRecordCount" resultType="Integer" parameterType="map">
+        SELECT COUNT(ID)
+        FROM mt_bank_info
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="branchId != null"> AND BRANCH_ID = #{branchId,jdbcType=VARCHAR} </if>
+            <if test="branchName != null"> AND BRANCH_NAME = #{branchName,jdbcType=VARCHAR} </if>
+            <if test="branchCode != null"> AND BRANCH_CODE = #{branchCode,jdbcType=VARCHAR} </if>
+            <if test="bankId != null"> AND BANK_ID = #{bankId,jdbcType=VARCHAR} </if>
+            <if test="bankName != null"> AND BANK_NAME = #{bankName,jdbcType=VARCHAR} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <!-- 组合符合条件查询 -->
+    <select id="queryListByParam" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_bank_info
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="branchId != null"> AND BRANCH_ID = #{branchId,jdbcType=VARCHAR} </if>
+            <if test="branchName != null"> AND BRANCH_NAME = #{branchName,jdbcType=VARCHAR} </if>
+            <if test="branchCode != null"> AND BRANCH_CODE = #{branchCode,jdbcType=VARCHAR} </if>
+            <if test="bankId != null"> AND BANK_ID = #{bankId,jdbcType=VARCHAR} </if>
+            <if test="bankName != null"> AND BANK_NAME = #{bankName,jdbcType=VARCHAR} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+    <select id="getByBranchId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_bank_info
+        WHERE BRANCH_ID = #{branchId,jdbcType=VARCHAR}
+    </select>
+    <select id="getByBranchCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_bank_info
+        WHERE BRANCH_CODE = #{branchCode,jdbcType=VARCHAR}
+    </select>
+</mapper>

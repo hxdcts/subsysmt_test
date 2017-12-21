@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pfb.entity.OrderEntity">
+    <resultMap id="BaseResultMap" type="com.pfb.entity.OrderEntity">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="VERSION" jdbcType="INTEGER" property="version"/>
+        <result column="CUSTOMER_NUM" jdbcType="VARCHAR" property="customerNum"/>
+        <result column="ORDER_NUM" jdbcType="VARCHAR" property="orderNum"/>
+        <result column="ORDER_STATUS" jdbcType="VARCHAR" property="orderStatus"/>
+        <result column="TOTAL_AMOUNT" jdbcType="DECIMAL" property="totalAmount"/>
+        <result column="ACTIVITY_AMOUNT" jdbcType="DECIMAL" property="activityAmount"/>
+        <result column="ACTUAL_AMOUNT" jdbcType="DECIMAL" property="actualAmount"/>
+        <result column="TIME_END" jdbcType="TIMESTAMP" property="timeEnd"/>
+        <result column="CHANNEL_ORDER_NUM" jdbcType="VARCHAR" property="channelOrderNum"/>
+        <result column="FUND_TYPE" jdbcType="VARCHAR" property="fundType"/>
+        <result column="ORDER_TYPE" jdbcType="VARCHAR" property="orderType"/>
+        <result column="SERVICE_TYPE" jdbcType="VARCHAR" property="serviceType"/>
+        <result column="TRADE_TYPE" jdbcType="VARCHAR" property="tradeType"/>
+        <result column="ORDER_FLAG" jdbcType="VARCHAR" property="orderFlag"/>
+        <result column="PLAT_RELATION_NO" jdbcType="VARCHAR" property="platRelationNo"/>
+        <result column="SETTLE_MODE" jdbcType="VARCHAR" property="settleMode"/>
+        <result column="DELETED" jdbcType="INTEGER" property="deleted"/>
+        <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      ID, VERSION, CUSTOMER_NUM, ORDER_NUM, ORDER_STATUS, TOTAL_AMOUNT, ACTIVITY_AMOUNT,
+      ACTUAL_AMOUNT, TIME_END, CHANNEL_ORDER_NUM, FUND_TYPE, ORDER_TYPE, SERVICE_TYPE,
+      TRADE_TYPE, ORDER_FLAG,PLAT_RELATION_NO, SETTLE_MODE, DELETED, DELETE_TIME, CREATE_TIME, MODIFY_TIME
+    </sql>
+
+    <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mt_order
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="delById" parameterType="java.lang.Long">
+      delete from mt_order
+      where ID = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.pfb.entity.OrderEntity" keyColumn="ID" keyProperty="id" useGeneratedKeys="true">
+        insert into mt_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                VERSION,
+            <if test="customerNum != null">
+                CUSTOMER_NUM,
+            </if>
+            <if test="orderNum != null">
+                ORDER_NUM,
+            </if>
+            <if test="orderStatus != null">
+                ORDER_STATUS,
+            </if>
+            <if test="totalAmount != null">
+                TOTAL_AMOUNT,
+            </if>
+            <if test="activityAmount != null">
+                ACTIVITY_AMOUNT,
+            </if>
+            <if test="actualAmount != null">
+                ACTUAL_AMOUNT,
+            </if>
+            <if test="timeEnd != null">
+                TIME_END,
+            </if>
+            <if test="channelOrderNum != null">
+                CHANNEL_ORDER_NUM,
+            </if>
+            <if test="fundType != null">
+                FUND_TYPE,
+            </if>
+            <if test="orderType != null">
+                ORDER_TYPE,
+            </if>
+            <if test="serviceType != null">
+                SERVICE_TYPE,
+            </if>
+            <if test="tradeType != null">
+                TRADE_TYPE,
+            </if>
+            <if test="orderFlag != null">
+                ORDER_FLAG,
+            </if>
+             <if test="platRelationNo != null">
+                PLAT_RELATION_NO,
+            </if>
+             <if test="settleMode != null">
+                SETTLE_MODE,
+            </if>
+            <if test="deleted != null">
+                DELETED,
+            </if>
+            <if test="deleteTime != null">
+                DELETE_TIME,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                0,
+            <if test="customerNum != null">
+                #{customerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="activityAmount != null">
+                #{activityAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="actualAmount != null">
+                #{actualAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="timeEnd != null">
+                #{timeEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="channelOrderNum != null">
+                #{channelOrderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="fundType != null">
+                #{fundType,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null">
+                #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceType != null">
+                #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeType != null">
+                #{tradeType,jdbcType=VARCHAR},
+            </if>
+            <if test="orderFlag != null">
+                #{orderFlag,jdbcType=VARCHAR},
+            </if>
+             <if test="platRelationNo != null">
+              #{platRelationNo,jdbcType=VARCHAR},
+            </if>
+             <if test="settleMode != null">
+              #{settleMode,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="deleteTime != null">
+                #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.pfb.entity.OrderEntity">
+        update mt_order
+        <set>
+                VERSION = VERSION+1,
+            <if test="customerNum != null">
+                CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="activityAmount != null">
+                ACTIVITY_AMOUNT = #{activityAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="actualAmount != null">
+                ACTUAL_AMOUNT = #{actualAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="timeEnd != null">
+                TIME_END = #{timeEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="channelOrderNum != null">
+                CHANNEL_ORDER_NUM = #{channelOrderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="fundType != null">
+                FUND_TYPE = #{fundType,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null">
+                ORDER_TYPE = #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceType != null">
+                SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeType != null">
+                TRADE_TYPE = #{tradeType,jdbcType=VARCHAR},
+            </if>
+            <if test="orderFlag != null">
+                ORDER_FLAG = #{orderFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="platRelationNo != null">
+                PLAT_RELATION_NO = #{platRelationNo,jdbcType=VARCHAR},
+            </if>
+            <if test="settleMode != null">
+                SETTLE_MODE = #{settleMode,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="deleteTime != null">
+                DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="orderNum != null"> AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+	</trim>
+    </update>
+	<update id="updateFinalStatus" parameterType="com.pfb.entity.OrderEntity">
+        update mt_order
+        <set>
+                VERSION = VERSION+1,
+            <if test="customerNum != null">
+                CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="activityAmount != null">
+                ACTIVITY_AMOUNT = #{activityAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="actualAmount != null">
+                ACTUAL_AMOUNT = #{actualAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="timeEnd != null">
+                TIME_END = #{timeEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="channelOrderNum != null">
+                CHANNEL_ORDER_NUM = #{channelOrderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="fundType != null">
+                FUND_TYPE = #{fundType,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null">
+                ORDER_TYPE = #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceType != null">
+                SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeType != null">
+                TRADE_TYPE = #{tradeType,jdbcType=VARCHAR},
+            </if>
+            <if test="orderFlag != null">
+                ORDER_FLAG = #{orderFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="platRelationNo != null">
+                PLAT_RELATION_NO = #{platRelationNo,jdbcType=VARCHAR},
+            </if>
+            <if test="settleMode != null">
+                SETTLE_MODE = #{settleMode,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="deleteTime != null">
+                DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="orderNum != null"> AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+            and ORDER_STATUS='USERPAYING'
+	</trim>
+    </update>
+    <!-- 条件查询 -->
+    <select id="queryListForPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_order
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="customerNum != null"> AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="orderNum != null"> AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+            <if test="orderStatus != null"> AND ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR} </if>
+            <if test="totalAmount != null"> AND TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL} </if>
+            <if test="activityAmount != null"> AND ACTIVITY_AMOUNT = #{activityAmount,jdbcType=DECIMAL} </if>
+            <if test="actualAmount != null"> AND ACTUAL_AMOUNT = #{actualAmount,jdbcType=DECIMAL} </if>
+            <if test="channelOrderNum != null"> AND CHANNEL_ORDER_NUM = #{channelOrderNum,jdbcType=VARCHAR} </if>
+            <if test="fundType != null"> AND FUND_TYPE = #{fundType,jdbcType=VARCHAR} </if>
+            <if test="orderType != null"> AND ORDER_TYPE = #{orderType,jdbcType=VARCHAR} </if>
+            <if test="serviceType != null"> AND SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR} </if>
+            <if test="tradeType != null"> AND TRADE_TYPE = #{tradeType,jdbcType=VARCHAR} </if>
+            <if test="orderFlag != null"> AND ORDER_FLAG = #{orderFlag,jdbcType=VARCHAR} </if>
+            <if test="platRelationNo != null"> AND PLAT_RELATION_NO = #{platRelationNo,jdbcType=VARCHAR} </if>
+            <if test="settleMode != null"> AND SETTLE_MODE = #{settleMode,jdbcType=VARCHAR} </if>
+            <if test="deleted != null"> AND DELETED = #{deleted,jdbcType=INTEGER} </if>
+            <if test="deleteTime != null"> AND DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP} </if>
+            <if test="timeEnd != null"> AND TIME_END = #{timeEnd,jdbcType=TIMESTAMP} </if>
+            <if test="createTime != null"> AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP} </if>
+            <if test="modifyTime != null"> AND MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+    <select id="getRecordCount" resultType="Integer" parameterType="map">
+        SELECT COUNT(ID)
+        FROM mt_order
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="customerNum != null"> AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="orderNum != null"> AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+            <if test="orderStatus != null"> AND ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR} </if>
+            <if test="totalAmount != null"> AND TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL} </if>
+            <if test="activityAmount != null"> AND ACTIVITY_AMOUNT = #{activityAmount,jdbcType=DECIMAL} </if>
+            <if test="actualAmount != null"> AND ACTUAL_AMOUNT = #{actualAmount,jdbcType=DECIMAL} </if>
+            <if test="channelOrderNum != null"> AND CHANNEL_ORDER_NUM = #{channelOrderNum,jdbcType=VARCHAR} </if>
+            <if test="fundType != null"> AND FUND_TYPE = #{fundType,jdbcType=VARCHAR} </if>
+            <if test="orderType != null"> AND ORDER_TYPE = #{orderType,jdbcType=VARCHAR} </if>
+            <if test="serviceType != null"> AND SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR} </if>
+            <if test="tradeType != null"> AND TRADE_TYPE = #{tradeType,jdbcType=VARCHAR} </if>
+            <if test="orderFlag != null"> AND ORDER_FLAG = #{orderFlag,jdbcType=VARCHAR} </if>
+            <if test="platRelationNo != null"> AND PLAT_RELATION_NO = #{platRelationNo,jdbcType=VARCHAR} </if>
+            <if test="settleMode != null"> AND SETTLE_MODE = #{settleMode,jdbcType=VARCHAR} </if>
+            <if test="deleted != null"> AND DELETED = #{deleted,jdbcType=INTEGER} </if>
+            <if test="deleteTime != null"> AND DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP} </if>
+            <if test="timeEnd != null"> AND TIME_END = #{timeEnd,jdbcType=TIMESTAMP} </if>
+            <if test="createTime != null"> AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP} </if>
+            <if test="modifyTime != null"> AND MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <!-- 组合符合条件查询 -->
+    <select id="queryListByParam" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_order
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="customerNum != null"> AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="orderNum != null"> AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+            <if test="orderStatus != null"> AND ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR} </if>
+            <if test="totalAmount != null"> AND TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL} </if>
+            <if test="activityAmount != null"> AND ACTIVITY_AMOUNT = #{activityAmount,jdbcType=DECIMAL} </if>
+            <if test="actualAmount != null"> AND ACTUAL_AMOUNT = #{actualAmount,jdbcType=DECIMAL} </if>
+            <if test="channelOrderNum != null"> AND CHANNEL_ORDER_NUM = #{channelOrderNum,jdbcType=VARCHAR} </if>
+            <if test="fundType != null"> AND FUND_TYPE = #{fundType,jdbcType=VARCHAR} </if>
+            <if test="orderType != null"> AND ORDER_TYPE = #{orderType,jdbcType=VARCHAR} </if>
+            <if test="serviceType != null"> AND SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR} </if>
+            <if test="tradeType != null"> AND TRADE_TYPE = #{tradeType,jdbcType=VARCHAR} </if>
+            <if test="orderFlag != null"> AND ORDER_FLAG = #{orderFlag,jdbcType=VARCHAR} </if>
+            <if test="platRelationNo != null"> AND PLAT_RELATION_NO = #{platRelationNo,jdbcType=VARCHAR} </if>
+            <if test="settleMode != null"> AND SETTLE_MODE = #{settleMode,jdbcType=VARCHAR} </if>
+            <if test="deleted != null"> AND DELETED = #{deleted,jdbcType=INTEGER} </if>
+            <if test="deleteTime != null"> AND DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP} </if>
+            <if test="timeEnd != null"> AND TIME_END = #{timeEnd,jdbcType=TIMESTAMP} </if>
+            <if test="createTime != null"> AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP} </if>
+            <if test="modifyTime != null"> AND MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+ <!-- 组合符合条件查询 -->
+    <select id="queryUserPayingOrders" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_order
+        <trim prefix="where" prefixOverrides="and|or">
+        	and ORDER_STATUS='USERPAYING'
+        	and TRADE_TYPE='PAY'
+			and CREATE_TIME &lt;= DATE_SUB(now(),INTERVAL '00：03：00' hour_second)
+			and CREATE_TIME &gt;= DATE_SUB(now(),INTERVAL '00：15：00' hour_second)
+        </trim>
+        ORDER BY CREATE_TIME ASC
+    </select>
+</mapper>

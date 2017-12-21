@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pfb.entity.T0SettleEntity">
+    <resultMap id="BaseResultMap" type="com.pfb.entity.T0SettleEntity">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="VERSION" jdbcType="INTEGER" property="version"/>
+        <result column="SETTLE_NUM" jdbcType="VARCHAR" property="settleNum"/>
+        <result column="UPPER_SETTLE_NUM" jdbcType="VARCHAR" property="upperSettleNum"/>
+        <result column="ORDER_NUM" jdbcType="VARCHAR" property="orderNum"/>
+        <result column="CUSTOMER_NUM" jdbcType="VARCHAR" property="customerNum"/>
+        <result column="TOTAL_AMOUNT" jdbcType="DECIMAL" property="totalAmount"/>
+        <result column="SETTLE_AMOUNT" jdbcType="DECIMAL" property="settleAmount"/>
+        <result column="ACTUAL_SETTLE_AMOUNT" jdbcType="DECIMAL" property="actualSettleAmount"/>
+        <result column="SETTLE_FEE" jdbcType="DECIMAL" property="settleFee"/>
+        <result column="SETTLE_STATUS" jdbcType="VARCHAR" property="settleStatus"/>
+        <result column="DELETED" jdbcType="INTEGER" property="deleted"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      ID, VERSION, SETTLE_NUM,UPPER_SETTLE_NUM, ORDER_NUM, CUSTOMER_NUM,TOTAL_AMOUNT, SETTLE_AMOUNT, ACTUAL_SETTLE_AMOUNT,SETTLE_FEE,
+      SETTLE_STATUS,  DELETED,  CREATE_TIME, MODIFY_TIME
+    </sql>
+
+    <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mt_t0_settle
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="delById" parameterType="java.lang.Long">
+      delete from mt_t0_settle
+      where ID = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.pfb.entity.T0SettleEntity" keyColumn="ID" keyProperty="id" useGeneratedKeys="true">
+        insert into mt_t0_settle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                VERSION,
+            <if test="settleNum != null">
+                SETTLE_NUM,
+            </if>
+            <if test="upperSettleNum != null">
+                UPPER_SETTLE_NUM,
+            </if>
+            <if test="orderNum != null">
+                ORDER_NUM,
+            </if>
+            <if test="customerNum != null">
+                CUSTOMER_NUM,
+            </if>
+            <if test="totalAmount != null">
+                TOTAL_AMOUNT,
+            </if>
+            <if test="settleAmount != null">
+                SETTLE_AMOUNT,
+            </if>
+            <if test="actualSettleAmount != null">
+                ACTUAL_SETTLE_AMOUNT,
+            </if>
+            <if test="settleFee != null">
+                SETTLE_FEE,
+            </if>
+            <if test="settleStatus != null">
+                SETTLE_STATUS,
+            </if>
+            <if test="deleted != null">
+                DELETED,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                0,
+            <if test="settleNum != null">
+                #{settleNum,jdbcType=VARCHAR},
+            </if>
+            <if test="upperSettleNum != null">
+                #{upperSettleNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="customerNum != null">
+                #{customerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="settleAmount != null">
+                #{settleAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="actualSettleAmount != null">
+                #{actualSettleAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="settleFee != null">
+                #{settleFee,jdbcType=DECIMAL},
+            </if>
+            <if test="settleStatus != null">
+                #{settleStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.pfb.entity.T0SettleEntity">
+        update mt_t0_settle
+        <set>
+                VERSION = VERSION+1,
+            <if test="settleNum != null">
+                SETTLE_NUM = #{settleNum,jdbcType=VARCHAR},
+            </if>
+            <if test="upperSettleNum != null">
+                UPPER_SETTLE_NUM = #{upperSettleNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="customerNum != null">
+                CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="settleAmount != null">
+                SETTLE_AMOUNT = #{settleAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="actualSettleAmount != null">
+                ACTUAL_SETTLE_AMOUNT = #{actualSettleAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="settleFee != null">
+                SETTLE_FEE = #{settleFee,jdbcType=DECIMAL},
+            </if>
+            <if test="settleStatus != null">
+                SETTLE_STATUS = #{settleStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="settleNum != null"> AND SETTLE_NUM = #{settleNum,jdbcType=VARCHAR} </if>
+	</trim>
+    </update>
+    <!-- 条件查询 -->
+    <select id="queryListForPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_t0_settle
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="customerNum != null"> AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="settleNum != null"> AND SETTLE_NUM = #{settleNum,jdbcType=VARCHAR} </if>
+            <if test="upperSettleNum != null"> AND UPPER_SETTLE_NUM = #{upperSettleNum,jdbcType=VARCHAR} </if>
+            <if test="orderNum != null"> AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+            <if test="settleStatus != null"> AND SETTLE_STATUS = #{settleStatus,jdbcType=VARCHAR} </if>
+            <if test="deleted != null"> AND DELETED = #{deleted,jdbcType=INTEGER} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+    <select id="getRecordCount" resultType="Integer" parameterType="map">
+        SELECT COUNT(ID)
+        FROM mt_t0_settle
+        <trim prefix="where" prefixOverrides="and|or">
+			<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="customerNum != null"> AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="settleNum != null"> AND SETTLE_NUM = #{settleNum,jdbcType=VARCHAR} </if>
+            <if test="upperSettleNum != null"> AND UPPER_SETTLE_NUM = #{upperSettleNum,jdbcType=VARCHAR} </if>
+            <if test="orderNum != null"> AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+            <if test="settleStatus != null"> AND SETTLE_STATUS = #{settleStatus,jdbcType=VARCHAR} </if>
+            <if test="deleted != null"> AND DELETED = #{deleted,jdbcType=INTEGER} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <!-- 组合符合条件查询 -->
+    <select id="queryListByParam" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_t0_settle
+        <trim prefix="where" prefixOverrides="and|or">
+			<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="customerNum != null"> AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="settleNum != null"> AND SETTLE_NUM = #{settleNum,jdbcType=VARCHAR} </if>
+            <if test="upperSettleNum != null"> AND UPPER_SETTLE_NUM = #{upperSettleNum,jdbcType=VARCHAR} </if>
+            <if test="orderNum != null"> AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+            <if test="settleStatus != null"> AND SETTLE_STATUS = #{settleStatus,jdbcType=VARCHAR} </if>
+            <if test="deleted != null"> AND DELETED = #{deleted,jdbcType=INTEGER} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+    <!-- 组合符合条件查询 -->
+    <select id="queryUserRefundingOrders" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_t0_settle
+        <trim prefix="where" prefixOverrides="and|or">
+        	and SETTLE_STATUS='PROCESSING'
+			and CREATE_TIME &lt;= DATE_SUB(now(),INTERVAL '00：03：00' hour_second)
+			and CREATE_TIME &gt;= DATE_SUB(now(),INTERVAL '00：15：00' hour_second)
+        </trim>
+        ORDER BY CREATE_TIME ASC
+    </select>
+</mapper>

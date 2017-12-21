@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	<!-- 别名 -->
+	<typeAliases>
+		<typeAlias alias="Amount" type="com.pfb.common.Amount" />
+	</typeAliases>
+	<typeHandlers>
+		<typeHandler jdbcType="DECIMAL" javaType="com.pfb.common.Amount"
+			handler="com.pfb.dao.base.AmountTypeHandler" />
+	</typeHandlers>
+	<plugins>
+		<!-- <plugin interceptor="com.yx.financial.common.dao.common.SqlTimeInterceptor"> 
+			<property name="threshold" value="0"/> </plugin> -->
+		<!-- <plugin interceptor="com.pfb.subsysmt.dao.base.intercepter.TableSegInterceptor"></plugin> -->
+		<!-- MySQL数据库分页方言 -->
+		<plugin
+			interceptor="com.pfb.dao.base.intercepter.DialectPaginationInterceptor">
+			<property name="dialectClass"
+				value="com.pfb.dao.base.intercepter.MysqlDialect" />
+		</plugin>
+	</plugins>
+</configuration>

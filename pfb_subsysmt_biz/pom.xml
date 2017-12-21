@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.pfb</groupId>
+		<artifactId>subsysmt</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>pfb_subsysmt_biz</artifactId>
+	<name>pfb_subsysmt_biz</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.pfb.paycenter</groupId>
+			<artifactId>framework-msg</artifactId>
+		</dependency>
+		<dependency>
+        <groupId>com.pfb.paycenter</groupId>
+        <artifactId>framework-consumer-service</artifactId>
+        <version>1.0.1-RELEASE</version>
+      </dependency>
+		<dependency>
+			<groupId>com.pfb.paycenter</groupId>
+			<artifactId>framework-activemq</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>com.pfb</groupId>
+            <artifactId>pfb_subsysmt_service</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>com.pfb</groupId>
+            <artifactId>pfb_subsysmt_client</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.pfb</groupId>
+		    <artifactId> pfb_customer_client</artifactId>
+		</dependency>
+		<!-- dubbo -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<!-- json lib -->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib-ext-spring</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+		</dependency>
+		<!-- httpclient -->
+		<!-- <dependency> <groupId>org.kie.modules</groupId> <artifactId>org-apache-commons-httpclient</artifactId> 
+			</dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/org.lucee/commons-httpclient -->
+		<dependency>
+			<groupId>org.lucee</groupId>
+			<artifactId>commons-httpclient</artifactId>
+		</dependency>
+
+	</dependencies>
+</project>

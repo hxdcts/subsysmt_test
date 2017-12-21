@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pfb.entity.CityEntity" >
+  <resultMap id="BaseResultMap" type="com.pfb.entity.CityEntity" >
+  	<id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CITYID" property="cityid" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="PROVINCEID" property="provinceid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CITYID, CITY, PROVINCEID
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from MT_CITY
+ 	where  ID = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getByCityid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from MT_CITY
+ 	where  CITYID = #{cityid,jdbcType=VARCHAR}
+  </select>
+  <!-- 条件查询 -->
+    <select id="queryListForPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM MT_CITY
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="cityid != null"> AND CITYID = #{cityid,jdbcType=VARCHAR} </if>
+            <if test="city != null"> AND CITY = #{city,jdbcType=VARCHAR} </if>
+            <if test="provinceid != null"> AND PROVINCEID = #{provinceid,jdbcType=VARCHAR} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+    <select id="getRecordCount" resultType="Integer" parameterType="map">
+        SELECT COUNT(ID)
+        FROM MT_CITY
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="cityid != null"> AND CITYID = #{cityid,jdbcType=VARCHAR} </if>
+            <if test="city != null"> AND CITY = #{city,jdbcType=VARCHAR} </if>
+            <if test="provinceid != null"> AND PROVINCEID = #{provinceid,jdbcType=VARCHAR} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <!-- 组合符合条件查询 -->
+    <select id="queryListByParam" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM MT_CITY
+        <trim prefix="where" prefixOverrides="and|or">
+        	<if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="cityid != null"> AND CITYID = #{cityid,jdbcType=VARCHAR} </if>
+            <if test="city != null"> AND CITY = #{city,jdbcType=VARCHAR} </if>
+            <if test="provinceid != null"> AND PROVINCEID = #{provinceid,jdbcType=VARCHAR} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+</mapper>

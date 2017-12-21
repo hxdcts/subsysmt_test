@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pfb.entity.CustomerRelationEntity">
+    <resultMap id="BaseResultMap" type="com.pfb.entity.CustomerRelationEntity">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="VERSION" jdbcType="INTEGER" property="version"/>
+        <result column="CUSTOMER_NUM" jdbcType="VARCHAR" property="customerNum"/>
+        <result column="MCH_ID" jdbcType="VARCHAR" property="mchId"/>
+        <result column="STORE_ID" jdbcType="VARCHAR" property="storeId"/>
+        <result column="API_KEY" jdbcType="VARCHAR" property="apiKey"/>
+        <result column="PRODUCT_TYPE" jdbcType="VARCHAR" property="productType"/>
+        <result column="DELETED" jdbcType="INTEGER" property="deleted"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      ID, VERSION, CUSTOMER_NUM, MCH_ID,STORE_ID, API_KEY, PRODUCT_TYPE, DELETED, CREATE_TIME, MODIFY_TIME
+    </sql>
+
+    <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mt_customer_relation
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="delById" parameterType="java.lang.Long">
+      delete from mt_customer_relation
+      where ID = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.pfb.entity.CustomerRelationEntity" keyColumn="ID" keyProperty="id" useGeneratedKeys="true">
+        insert into mt_customer_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="version != null">
+                VERSION,
+            </if>
+            <if test="customerNum != null">
+                CUSTOMER_NUM,
+            </if>
+            <if test="mchId != null">
+                MCH_ID,
+            </if>
+            <if test="storeId != null">
+                STORE_ID,
+            </if>
+            <if test="apiKey != null">
+                API_KEY,
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="deleted != null">
+                DELETED,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER},
+            </if>
+            <if test="customerNum != null">
+                #{customerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="mchId != null">
+                #{mchId,jdbcType=VARCHAR},
+            </if>
+            <if test="storeId != null">
+                #{storeId,jdbcType=VARCHAR},
+            </if>
+            <if test="apiKey != null">
+                #{apiKey,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.pfb.entity.CustomerRelationEntity">
+        update mt_customer_relation
+        <set>
+            <if test="version != null">
+                VERSION = #{version,jdbcType=INTEGER},
+            </if>
+            <if test="customerNum != null">
+                CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="mchId != null">
+                MCH_ID = #{mchId,jdbcType=VARCHAR},
+            </if>
+            <if test="storeId != null">
+                STORE_ID = #{storeId,jdbcType=VARCHAR},
+            </if>
+            <if test="apiKey != null">
+                API_KEY = #{apiKey,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE = #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="id != null"> AND ID = #{id,jdbcType=VARCHAR} </if>
+            <if test="customerNum != null"> AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="productType != null"> AND PRODUCT_TYPE = #{productType,jdbcType=VARCHAR} </if>
+		</trim>
+    </update>
+
+    <!-- 条件查询 -->
+    <select id="queryListForPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_customer_relation
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="customerNum != null"> AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="mchId != null"> AND MCH_ID = #{mchId,jdbcType=VARCHAR} </if>
+            <if test="storeId != null"> AND STORE_ID = #{storeId,jdbcType=VARCHAR} </if>
+            <if test="apiKey != null"> AND API_KEY = #{apiKey,jdbcType=VARCHAR} </if>
+            <if test="productType != null"> AND PRODUCT_TYPE = #{productType,jdbcType=VARCHAR} </if>
+            <if test="deleted != null"> AND DELETED = #{deleted,jdbcType=INTEGER} </if>
+            <if test="createTime != null"> AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP} </if>
+            <if test="modifyTime != null"> AND MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+    <select id="getRecordCount" resultType="Integer" parameterType="map">
+        SELECT COUNT(ID)
+        FROM mt_customer_relation
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="customerNum != null"> AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="mchId != null"> AND MCH_ID = #{mchId,jdbcType=VARCHAR} </if>
+            <if test="apiKey != null">  AND API_KEY = #{apiKey,jdbcType=VARCHAR} </if>
+            <if test="productType != null"> AND PRODUCT_TYPE = #{productType,jdbcType=VARCHAR} </if>
+            <if test="storeId != null"> AND STORE_ID = #{storeId,jdbcType=VARCHAR} </if>
+            <if test="deleted != null"> AND DELETED = #{deleted,jdbcType=INTEGER} </if>
+            <if test="createTime != null"> AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP} </if>
+            <if test="modifyTime != null"> AND MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <!-- 组合符合条件查询 -->
+    <select id="queryListByParam" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_customer_relation
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="customerNum != null">AND CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR} </if>
+            <if test="mchId != null"> AND MCH_ID = #{mchId,jdbcType=VARCHAR} </if>
+            <if test="apiKey != null"> AND API_KEY = #{apiKey,jdbcType=VARCHAR} </if>
+            <if test="productType != null"> AND PRODUCT_TYPE = #{productType,jdbcType=VARCHAR} </if>
+            <if test="storeId != null"> AND STORE_ID = #{storeId,jdbcType=VARCHAR} </if>
+            <if test="deleted != null"> AND DELETED = #{deleted,jdbcType=INTEGER} </if>
+            <if test="createTime != null"> AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP} </if>
+            <if test="modifyTime != null"> AND MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP} </if>
+        </trim>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+</mapper>

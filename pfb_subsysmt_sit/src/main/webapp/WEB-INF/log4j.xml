@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!-- - Log4j配置 -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- [公共Appender] 控制台STDERR -->
+	<appender name="STDERR-APPENDER" class="org.apache.log4j.ConsoleAppender">
+		<param name="encoding" value="UTF-8" />
+		<param name="target" value="System.err" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss SSS\} %-5p] [thread %-5t] [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION} - %X{requestURIWithQueryString}] %-5p %c{1} - %m%n" />
+		</layout>
+	</appender>
+	<!-- [公共Appender] 默认 -->
+	<appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="/app_logs/common-default.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss SSS\} %-5p] [thread %-5t] [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION} - %X{requestURIWithQueryString}] %-5p %c{1} line: %L - %m%n" />
+		</layout>
+	</appender>
+	<!-- [公共Appender] 错误信息统计 -->
+	<appender name="ERROR-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="/app_logs/common-error.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss SSS\} %-5p] [thread %-5t] [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION} - %X{requestURIWithQueryString}] %-5p %c{1} line: %L - %m%n" />
+		</layout>
+	</appender>
+	<!-- [ＤＡＯ ＳＱＬ输出] 信息统计 -->
+	<appender name="SQL-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="/app_logs/sql-info.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss SSS\} %-5p] [thread %-5t] - %-5p %c{1} - %m%n" />
+		</layout>
+	</appender>
+	<!-- [公共Appender] 错误信息统计 -->
+	<appender name="TIMEINTERCEPTOR-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="/app_logs/timer-interceptor.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION} - %X{requestURIWithQueryString}] %-5p %c{1} line: %L - %m%n" />
+		</layout>
+	</appender>
+	<!-- <appender name="EMAIL_QQ" class="org.apache.log4j.net.SMTPAppender"> 
+		<param name="Threshold" value="INFO"/> <param name="BufferSize" value="1" 
+		/> <param name="SMTPHost" value="smtp.qq.com" /> <param name="SMTPUsername" 
+		value="yu.zengjia@pufubao.net" /> <param name="SMTPPassword" value="***" 
+		/> <param name="From" value="yu.zengjia@pufubao.net" /> <param name="To" 
+		value="zhang.hui@pufubao.net" /> <param name="Subject" value="交易系统日志" /> 
+		<param name="LocationInfo" value="true" /> <param name="SMTPDebug" value="true" 
+		/> <layout class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern" 
+		value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION} 
+		- %X{requestURIWithQueryString}] %-5p %c{1} - %m%n"/> </layout> </appender> -->
+	<logger name="com.pfb" additivity="false">
+		<level value="info" />
+		<appender-ref ref="DEFAULT-APPENDER" />
+	</logger>
+	<logger name="com.alibaba" additivity="false">
+		<level value="info" />
+		<appender-ref ref="TIMEINTERCEPTOR-APPENDER" />
+	</logger>
+	<logger name="org.springframework" additivity="false">
+		<level value="error" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+	<logger name="TimeInterceptor" additivity="false">
+		<level value="info" />
+		<appender-ref ref="TIMEINTERCEPTOR-APPENDER" />
+	</logger>
+	<logger name="java.sql" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="SQL-APPENDER" />
+	</logger>
+	<root>
+		<level value="info" />
+		<appender-ref ref="STDERR-APPENDER" />
+	</root>
+</log4j:configuration>

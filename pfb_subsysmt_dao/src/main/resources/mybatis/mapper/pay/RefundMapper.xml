@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pfb.entity.RefundEntity">
+  <resultMap id="BaseResultMap" type="com.pfb.entity.RefundEntity">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="VERSION" jdbcType="INTEGER" property="version" />
+    <result column="REFUND_NUM" jdbcType="VARCHAR" property="refundNum" />
+    <result column="ORDER_NUM" jdbcType="VARCHAR" property="orderNum" />
+    <result column="PLAT_RELATION_NO" jdbcType="VARCHAR" property="platRelationNo" />
+    <result column="UPPER_REFUND_NO" jdbcType="VARCHAR" property="upperRefundNo" />
+    <result column="CUSTOMER_NUM" jdbcType="VARCHAR" property="customerNum" />
+    <result column="REFUND_FEE" jdbcType="DECIMAL" property="refundFee" />
+    <result column="REFUND_CHANNEL" jdbcType="VARCHAR" property="refundChannel" />
+    <result column="REFUND_ACCOUNT" jdbcType="VARCHAR" property="refundAccount" />
+    <result column="REFUND_STATUS" jdbcType="VARCHAR" property="refundStatus" />
+    <result column="DEVICE_INFO" jdbcType="VARCHAR" property="deviceInfo" />
+    <result column="REFUND_END_TIME" jdbcType="TIMESTAMP" property="refundEndTime" />
+    <result column="NOTIFY_URL" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+    <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    ID, VERSION, REFUND_NUM, ORDER_NUM, PLAT_RELATION_NO, UPPER_REFUND_NO, CUSTOMER_NUM,REFUND_FEE, REFUND_CHANNEL, REFUND_ACCOUNT, REFUND_STATUS
+    ,DEVICE_INFO, REFUND_END_TIME, NOTIFY_URL, DELETED, DELETE_TIME, CREATE_TIME, MODIFY_TIME
+  </sql>
+  
+  <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mt_refund
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="getByRefundNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mt_refund
+    where REFUND_NUM = #{refundNum,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 条件查询 -->
+  <select id="queryListForPage" resultMap="BaseResultMap" parameterType="map">
+	SELECT
+	<include refid="Base_Column_List" />
+	FROM mt_refund
+	<trim prefix="where" prefixOverrides="and|or">
+	    <if test="refundNum != null and refundNum != ''">AND REFUND_NUM = #{refundNum,jdbcType=VARCHAR} </if>
+		<if test="orderNum != null and orderNum != ''">AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+		<if test="platRelationNo != null and platRelationNo != ''">AND PLAT_RELATION_NO = #{platRelationNo,jdbcType=VARCHAR} </if>
+		<if test="upperRefundNo != null and upperRefundNo != ''">AND UPPER_REFUND_NO = #{upperRefundNo,jdbcType=VARCHAR} </if>
+		<if test="refundStatus != null and refundStatus != ''">AND REFUND_STATUS = #{refundStatus,jdbcType=VARCHAR} </if>
+		<!-- <if test="queTimeStart !=null and queTimeStart !='' and queTimeEnd !=null and queTimeEnd !='' ">AND CREATE_TIME BETWEEN #{queTimeStart,jdbcType=VARCHAR} AND #{queTimeEnd,jdbcType=VARCHAR}</if> -->
+	</trim>
+  </select>
+  <!-- 条件查询 -->
+  <select id="queryListByParam" resultMap="BaseResultMap" parameterType="map">
+	SELECT
+	<include refid="Base_Column_List" />
+	FROM mt_refund
+	<trim prefix="where" prefixOverrides="and|or">
+	    <if test="refundNum != null and refundNum != ''">AND REFUND_NUM = #{refundNum,jdbcType=VARCHAR} </if>
+		<if test="orderNum != null and orderNum != ''">AND ORDER_NUM = #{orderNum,jdbcType=VARCHAR} </if>
+		<if test="platRelationNo != null and platRelationNo != ''">AND PLAT_RELATION_NO = #{platRelationNo,jdbcType=VARCHAR} </if>
+		<if test="upperRefundNo != null and upperRefundNo != ''">AND UPPER_REFUND_NO = #{upperRefundNo,jdbcType=VARCHAR} </if>
+		<if test="refundStatus != null and refundStatus != ''">AND REFUND_STATUS = #{refundStatus,jdbcType=VARCHAR} </if>
+	</trim>
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Long">
+    delete from mt_refund
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.pfb.entity.RefundEntity">
+    insert into mt_refund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="version != null">
+        VERSION,
+      </if>
+      <if test="refundNum != null">
+        REFUND_NUM,
+      </if>
+      <if test="orderNum != null">
+        ORDER_NUM,
+      </if>
+      <if test="platRelationNo != null">
+        PLAT_RELATION_NO,
+      </if>
+      <if test="upperRefundNo != null">
+        UPPER_REFUND_NO,
+      </if>
+      <if test="customerNum != null">
+        CUSTOMER_NUM,
+      </if>
+      <if test="refundFee != null">
+        REFUND_FEE,
+      </if>
+      <if test="refundChannel != null">
+        REFUND_CHANNEL,
+      </if>
+      <if test="refundAccount != null">
+        REFUND_ACCOUNT,
+      </if>
+      <if test="refundStatus != null">
+        REFUND_STATUS,
+      </if>
+      <if test="notifyUrl != null">
+        NOTIFY_URL,
+      </if>
+      <if test="deviceInfo != null">
+        DEVICE_INFO,
+      </if>
+      <if test="refundEndTime != null">
+        REFUND_END_TIME,
+      </if>
+      <if test="deleted != null">
+        DELETED,
+      </if>
+      <if test="deleteTime != null">
+        DELETE_TIME,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="refundNum != null">
+        #{refundNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="platRelationNo != null">
+        #{platRelationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="upperRefundNo != null">
+        #{upperRefundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNum != null">
+        #{customerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="refundFee != null">
+        #{refundFee,jdbcType=DECIMAL},
+      </if>
+      <if test="refundChannel != null">
+        #{refundChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="refundAccount != null">
+        #{refundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="refundStatus != null">
+        #{refundStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceInfo != null">
+        #{deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundEndTime != null">
+        #{refundEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.pfb.entity.RefundEntity">
+    update mt_refund
+    <set>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="refundNum != null">
+        REFUND_NUM = #{refundNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="platRelationNo != null">
+        PLAT_RELATION_NO = #{platRelationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="upperRefundNo != null">
+        UPPER_REFUND_NO = #{upperRefundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNum != null">
+        CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="refundFee != null">
+        REFUND_FEE = #{refundFee,jdbcType=DECIMAL},
+      </if>
+      <if test="refundChannel != null">
+        REFUND_CHANNEL = #{refundChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="refundAccount != null">
+        REFUND_ACCOUNT = #{refundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="refundStatus != null">
+        REFUND_STATUS = #{refundStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceInfo != null">
+        DEVICE_INFO = #{deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="refundEndTime != null">
+        REFUND_END_TIME = #{refundEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="deleteTime != null">
+        DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where REFUND_NUM = #{refundNum,jdbcType=VARCHAR}
+  </update>
+  <!-- 组合符合条件查询 -->
+    <select id="queryUserRefundingOrders" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mt_refund
+        <trim prefix="where" prefixOverrides="and|or">
+        	and REFUND_STATUS='PROCESSING'
+			and CREATE_TIME &lt;= now()
+			and CREATE_TIME &gt;= DATE_SUB(now(),INTERVAL '01：00：00' hour_second)
+        </trim>
+        ORDER BY CREATE_TIME ASC
+    </select>
+  <!-- <update id="updateByRefundNum" parameterType="com.pfb.brcb.entity.Refund">
+    update mt_refund
+    <set>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="refundNum != null">
+        REFUND_NUM = #{refundNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="outRefundNum != null">
+        OUT_REFUND_NUM = #{outRefundNum,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null">
+        TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNum != null">
+        CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="agentNum != null">
+        AGENT_NUM = #{agentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null">
+        TOTAL_FEE = #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="refundFee != null">
+        REFUND_FEE = #{refundFee,jdbcType=DECIMAL},
+      </if>
+      <if test="refundChannel != null">
+        REFUND_CHANNEL = #{refundChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="refundAccount != null">
+        REFUND_ACCOUNT = #{refundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="refundStatus != null">
+        REFUND_STATUS = #{refundStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        ORDER_TYPE = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="refundType != null">
+        REFUND_TYPE = #{refundType,jdbcType=VARCHAR},
+      </if>
+      <if test="refundRecvAccount != null">
+        REFUND_RECV_ACCOUNT = #{refundRecvAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceInfo != null">
+        DEVICE_INFO = #{deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundEndTime != null">
+        REFUND_END_TIME = #{refundEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notifyUrl != null">
+        NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="deleteTime != null">
+        DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      VERSION=VERSION+1
+    </set>
+    where REFUND_NUM = #{refundNum,jdbcType=VARCHAR}
+  </update> -->
+  <!-- <select id="getApproveRefundByOrderNum" resultMap="BaseResultMap" parameterType="map">
+	SELECT
+	<include refid="Base_Column_List" />
+	FROM mt_refund
+	WHERE ORDER_NUM = #{orderNum,jdbcType=VARCHAR} AND REFUND_STATUS != #{refundStatus,jdbcType=VARCHAR} 
+  </select> -->
+  <!-- <update id="updateByPrimaryKey" parameterType="com.pfb.brcb.entity.Refund">
+    update mt_refund
+    set VERSION = #{version,jdbcType=INTEGER},
+      REFUND_NUM = #{refundNum,jdbcType=VARCHAR},
+      ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+      OUT_REFUND_NUM = #{outRefundNum,jdbcType=VARCHAR},
+      CUSTOMER_NUM = #{customerNum,jdbcType=VARCHAR},
+      AGENT_NUM = #{agentNum,jdbcType=VARCHAR},
+      TOTAL_FEE = #{totalFee,jdbcType=DECIMAL},
+      REFUND_FEE = #{refundFee,jdbcType=DECIMAL},
+      REFUND_CHANNEL = #{refundChannel,jdbcType=VARCHAR},
+      REFUND_ACCOUNT = #{refundAccount,jdbcType=VARCHAR},
+      REFUND_STATUS = #{refundStatus,jdbcType=VARCHAR},
+      REFUND_TYPE = #{refundType,jdbcType=VARCHAR},
+      REFUND_RECV_ACCOUNT = #{refundRecvAccount,jdbcType=VARCHAR},
+      REFUND_END_TIME = #{refundEndTime,jdbcType=TIMESTAMP},
+      DELETED = #{deleted,jdbcType=INTEGER},
+      DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update> -->
+</mapper>
