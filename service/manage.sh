@@ -12,8 +12,8 @@ maven_container_name="maven"
 profile=$3
 tomcat_port=$4
 docker_log_dir="/app_logs"
-tomcat_logs_dir="/Users/cts/Desktop/data/jenkins-payment/runtime/logs/$project_name"
-maven_m2_dir="/Users/cts/Desktop/data/jenkins-project/persistent/m2/repository"
+tomcat_logs_dir="/Users/cts/Desktop/logs/$project_name"
+maven_m2_dir="/Users/cts/Desktop/repository"
 project_dir="$(pwd)"
 function build(){
   local profile=$profile
