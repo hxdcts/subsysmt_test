@@ -90,7 +90,7 @@ function build(){
 
                function mvn(){
                local profile=$1
-               local_host="`hostname --f`"
+               local_host="`hostname -f`"
                 main_local_ip==`host $local_host 2>/dev/null | awk '{print $NF}'`
                args="$args -v $(pwd):/project"
                args="$args -v $maven_m2_dir:/root/.m2"
