@@ -22,7 +22,7 @@ function run_cmd(){
 }
 
 function ensure_dir(){
-    if [ ! -d $1 ]; then
+    if [ -d $1 ]; then
     run_cmd "mkdir -p  $1"
     fi
 }
