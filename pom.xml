@@ -10,7 +10,7 @@
     <description>subsysmt system</description>
 	<!-- 代付通道 等接入 -->
 	<properties>
-		<springframework.version>4.3.15</springframework.version>
+		<springframework.version>4.3.18</springframework.version>
 		<netty.version>4.0.19.Final</netty.version>
 		<jsp.version>2.2</jsp.version>
 		<jstl.version>1.2</jstl.version>
